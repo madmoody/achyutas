@@ -1,0 +1,271 @@
+complete
+linux
+it provides gui tool 
+linux cli
+it is used to design and develop free in unix envirnments 
+e source code feature in linux here we can change too many thing then windows
+1 simplified update for all installed s/w
+2 Free software licensing
+3 acess to source code
+4 multiple distrubution
+5 better malware protection 
+
+all files and folder will be stored in root director
+/ fwd slash indicates root directory
+pwd -- current working directory
+echo -- command that writes its orgument to standard out put
+su -- switch to root user
+su username --- switch to a differnt user
+sudo -- excutes only that command with root/super user privilage
+clear --command used to clear
+
+
+
+login in using virtual machine
+ 
+ centos
+ update od software
+ sudo yum update software
+ pwd 
+ cd Desktop -- it show the folder location
+ ls -- list the file found in folder 
+ cd (folder) you will be inside it
+ ls -- you will find files in the folder
+ clear -- all clear the terminal
+ cd .. -- it will exit and navigate the previous directory
+ cd ..
+ cd 
+ ls (31:21)
+cd -- Desktop/(tab)folder/(tab)folder/(tab) it will reach required directory feed thr path
+cd -- you will jump directly to home directory
+echo hi, iam idiot (o/p hi iam idiot)whatevere orgument givene  it will be displayed
+#the difference between variable and string is dollar
+x=100
+
+echo $x (100 will be printed) without dolllar oly x will be printed
+su  re t
+( # switch to root user)
+exit
+su (user name)
+sudo ls(user that  exicute the root user directory same as su ls)
+ls indicates documents and folder
+ls path(desktop/pictures) contetnt path will be displayed
+ls -l - using l flag lists all the content with owner setting permision and time stamp we find here size permision name of the content
+ls -a - a flag (hiddden content will exicute)
+ls --author --author flag 
+ls -S size
+ls -laS /home/edurekha > file1.txt (create folder in directory)
+vi file1.tx (vi command to edit or add feature)
+cd desktop/
+ls
+cd - switch to root directory
+cd / in the root directory
+ls
+cd bin/
+ls 
+cd 'directory'/ (it will be woreking in directory)
+ls
+
+#cat command is used several files displayed to one]
+cat -b -- used to add line numbers to non blank licensing
+cat -n -- used to add line numbers to all licensing
+cat -s -- used to squeeze blank line into one line
+cat -E-- show $ at the end of line
+ 
+ $ cat > file.txt -- used to create new file  and enter text contents from the terminal
+ $ cat >> file.txt -- used to append text contents to an existing file from the terminal you can continue more line 
+
+
+ cat > file1.txt
+ hi, iam pavan (ctrl d to come back)
+
+cat file2.txt (you get content)
+cat file1.txt file2.txt
+cat file1.txt >> file2.txt 
+cat file2.txt  (file1 files move to file 2)
+
+cat -n file2.txt -- will show all the all line in number wise 
+cat -b file2.txt -- it show all number to non black line
+
+GREP command (search for perticular strings or world in a text file)
+  create file
+  cat > automobile.txt
+  cars
+  bus 
+grep s  automobile.txt (the related string will appear)
+cars and bus will be show
+grep -i am automobile.txt
+cat >> automobile.txt
+amber
+cat automobiles.txt 
+grep -n am automobile.txt
+shows the line number present in the list
+grep -v am automobile.txt
+grep -iv am automobile.txt
+grep -c am automobile.txt(shows the number )
+grep -ic am automobile.txt 
+
+sort command(sort command sort the results of a search either alphabetically or numerically,files,files contet and directories are sorted)
+sort file1.txt // sorts the contents of file1.txt and return them in alphabetical order
+sort File1.txt File2.txt //sorts the contents of both file1.txt & file2.txt
+sort -r file1.txt //'r' flag returns the results in reverse order 
+sort -f file1.txt //'f' flag does case insensitive sorting
+sort -n file1.txt //'n' flag returns the results as per numerical order
+
+  ls
+  sort
+  adcsjf
+  ahdkll
+  dhakdlldld
+  xhcncmd
+  ctrl d (exit)
+  sort automobile (it will be set up in alphbetic order)
+  sort automobile.txt file1.txt
+  
+  "|" pipe command -- perform two operation at same command
+  grep dh file1.txt file2.txt | sort
+  grep dh file1.txt file2.txt | sort -r
+
+  cp{options} command  source destination -- used to copy files and directories
+  cp -i enters inactive mode; CLI ask before overwritting files
+  cp -n does not overwrite the file
+  cp -u updates the destination file only when source file is different from destnation file 
+  cp -R recursive copy ; copies even hidden files
+  cp -v verbose; prints informative messages
+
+  cd 
+  cd desktop/
+  ls
+  cp LMS /home/edurekha/Documents/
+    
+  mv command -- this command is used to move file and directories
+  mv -i -- enters interactive mode; CLI ask before overwrites
+  mv -u -- Updates the destination file only source file is different from destination file
+  mv -v -- verbose; prints source and destination file
+
+  ls
+  mv folder folder/
+  mv folder folder /destination/
+  more than 10 file
+  cp *.txt /home/edurekha/music
+  mv *.txt /home/edurekha/pictures
+  mv /home/edurekha/pictures/*.txt
+
+  mkdir -- this command is used to create a new directory
+  mkdir -p   -- create both a new parent directory and a sub-directory
+  mkdir --parents -- this is also used for the same process 
+  mkdir -p file1/{f2,f3,f4} -- this is used to creste multiple subdirectory inside the new parent directory
+   
+   ls 
+   mkdir folder2
+   ls
+   cd folder2/
+   mkdir -p folder1/folder2/folder3/ 
+ 
+ cd folder3/
+ mkdr -p f2/{folder1,folder2,folder3}
+  
+  rm & rmdir -- these command used to remove the specify directory  2-12-36
+rmdir -p -- removes both the parent and child directory
+rmdir -pv -- removes all the parent and sub directories along with the verbose
+rm -r -- Removes non empty directories
+rm -rp -- remves non empty directories including parent and subdirectory
+
+Working with user permissions
+
+ls - l 
+'-' normal file
+directory - 'd'
+character special file - 'c'
+binary special - 'b'
+Read - 'r'
+write-'w'
+Execute- 'x'
+ users -'u'
+ groups -'g'
+ others- o
+ all - a
+
+ working with user permissions
+chmod -- to change access permission of files and directories
+chown -- to change owner of file and directory
+chgrp -- to change group ownership of files and directory
+
+commands
+chmod g+wx filename -- this gives write and execute permission to group memebers
+chmod u=rwx,o-wx filename --this gives read write and execute permission to owners.and removes the write and execute ownership from other memebers
+chown username filename -- changes the owner of the specified file
+chown userrname:groupname filename --changes both the owners and group ownership of the specified file
+chgrp groupname filename -- changes group ownership of specified file
+
+https://www.youtube.com/watch?v=wtdFPppcup4
+
+comand to install
+sudo yum install package // for red hat  based systems
+sudo apt-get installl package // for debian gnu/linux based systems ubuntu
+sudo dnf install  package // for fedora based sysytem
+source .bashrc (set the environment variable here)
+cd 
+sudo gedit .bashrc
+
+gzip: To compress files with .gz format
+gunzip: To decompress .gz files
+tar: To compress and decompress files with .tar format
+
+tar -cvf tar-file-name file-name // compressing files to Tar format
+tar -xvf tar-file-name // extracting/ decompressing files in Tar format
+
+Environamental  variable
+
+printenv// prints the list of all environments
+echo $HOME // This will  print the path of the home directory of the user
+echo $PATH // it is a colon-seprated list of directories in which shell looks for commands
+echo $HOSTNAME // This will print the host name
+echo $USERNAME //This will print the user name
+echo $LANG // This will print the languge being used
+echo $BASH_VERSION //   is will print the version of bash  
+
+
+REGULAR EXPRESSIONS
+ search through data it can be piped along with 'grep' command to find patterns of text in the file
+ . replaces any character
+ ^ Matches the start of the string 
+ $ Matches the end of the string
+ " Matches the precending charater Zero or more times
+ ? Matches the precending character one or more times 
+() groups regular expressions
+\ Represents special characters
+
+$ cat File1.txt | grep ^a 
+$ grep  'a[0.9]x' File1.txt
+$ ls | grep '[xt$]' 
+$ ls | grep '[0-9].txt'
+$ 
+top command
+firefox
+ctrl z (stopped)
+ps ux (my user visible)
+you can check firfox id
+then youe  can terminate the command
+
+creating user
+sudo useradd user-name
+sudo passwd user-name
+sudo userdel user-name
+ 
+sudo groupadd group-name 
+sudo groupdel group-name 
+sudo usermod -g group-name user-name
+
+SSH FOR REMOTE MACHINE ACESS
+- service iptables stop // Drops the ip table
+- sudo chkconfig iptable off// permanently   disables  the ip table
+- sudo gedit  /etc/hosts // add the below ip addresses in both the master and solves  hosts file
+master - ip
+slave - ip
+- ip addr show // to show the ip addresses
+- sudo ip addr del ip-address dev eth1 // adding ip at the master node
+- sudo ip addr add ip-address dev eth1
+
+-ssh master // slave node will give remotes access to master
+-ssh slave // master node will give remote acces to slave

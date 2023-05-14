@@ -1,0 +1,5 @@
+total 12
+drwxrwxr-x 2 svcs-3 svcs-3 4096 May 14 15:29 .
+drwxrwxr-x 7 svcs-3 svcs-3 4096 May 14 15:28 ..
+-rw-rw-r-- 1 svcs-3 svcs-3    0 May 14 15:29 find.txt
+-rw-rw-r-- 1 svcs-3 svcs-3    7 May 14 15:25 ls.txt

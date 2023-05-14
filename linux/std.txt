@@ -1,0 +1,6 @@
+cat >file places standard i/p into the file:wq
+
+
+
+
+
