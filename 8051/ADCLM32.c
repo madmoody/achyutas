@@ -57,36 +57,48 @@ void lcd_init()
 }
 void ADC_init()
 {
-ST = 0;
-ALE = 0;
-OE = 0;
-EOC = 1;
-ADC_port2 = 0xFF;
+ST = 0;                          // initialise the start
+ALE = 0;                         // initialise the Adress latch enable
+OE = 0;                          // output enalble initialise 
+EOC = 1;                         // set End of conversation
+ADC_port2 = 0xFF;                //set the port
 }
+
 int ADC_read()
 {
+<<<<<<< HEAD
 int adcdata;
 ADC_A = 0x00;
+=======
+int data;
+ADC_A = 0x00;                    //set miltiplexer
+>>>>>>> created
 ADC_B = 0x00;
 ADC_C = 0x00;
 
-ALE = 1;
-delay(50);
-ST = 1;
-delay(25);
+ALE = 1;                         //enable lactch
+delay(50);                       // 10pf give 50ms time for one cycle
+ST = 1;                          //start bit 
+delay(25);                         
 
-ALE = 0;
+ALE = 0;                       
 delay(50);
 ST = 0;
 
-while(EOC == 0);
+while(EOC == 0);                 //check falling edge overflag
 
-OE  =1;
+OE  =1;                          //o/p enable i/p
 delay(25);
+<<<<<<< HEAD
 adcdata = ADC_port2;
 OE = 0;
 return adcdata;
+=======
+data = ADC_port2;              //store the value
+OE = 0;              
+>>>>>>> created
 }
+
 int main()
 {
 int value,i = 0;
