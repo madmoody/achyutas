@@ -1,5 +1,5 @@
 #	CC = gcc
-final:
+#final:
 #	$(CC)  file1.c file2.c -o final
 #clean:
 #	rm *.o final  
