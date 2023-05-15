@@ -1,5 +1,5 @@
-#include<reg52>
-
+#include<reg52.h>
+#include<stdio.h>
 sbit rw = P1^0;
 sbit rs = P1^1;
 sbit en = P1^2;
