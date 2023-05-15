@@ -7,9 +7,14 @@ sbit en = P1^2;
 sbit ADC_prot2 =  P2;
 sbit LCD_ port0 = P0;
 
-sbit ALE = P3^0;           //make enable before start  
-sbit ST = P3^1;            //start the conversion  low to high rising edge
-sbit EOC = P3^2;        //gives status about data high on falling edge
+sbit ADC_A = P3^0;           //make enable before start  
+sbit ADC_B = P3^1;            //start the conversion  low to high rising edge
+sbit ADC_c = P3^2;        //gives status about data high on falling edge
+sbit ALE = P3^3;
+sbit ST = P3^4;
+sbit EOC = P3^5;
+sbit OE = P3^6;
+
 
 void delay(time)
 {
@@ -41,19 +46,51 @@ lcd_cmd(0x38);
 	lcd_cmd(0x81);
 	delay(10);
 }
-}	
+void ADC_init()
+{
+ST = 0;
+ALE = 0;
+OE = 0;
+EOC = 1;
+ADC_port2 = 0xFF;
+}
+int ADC_read()
+{
+int data;
+ADC_A = 0x00;
+ADC_B = 0x00;
+ADC_C = 0x00;
+
+ALE = 1;
+delay(50);
+ST = 1;
+delay(25);
+
+ALE = 0;
+delay(50);
+ST = 0;
+
+while(EOC == 0);
+
+OE  =1;
+delay(25);
+data = ADC_port2;
+OE = 0;
+}
 int main()
 {
 int value;
+char temp[100];
 lcd_init();
-
+ADC_init();
 lcd_print(1,4,"Temperature : ");
-ALE = 1;
+while(1)
+{
+	value = ADC_read();
 
-while(EOC == 1);
-value = ADC_port2;
-sprintf(data,".2%f",value);
-lcd_print(data);
+sprintf(temp,".2%f",value);
+lcd_print(temp);
+}
 }
 
 
