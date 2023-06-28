@@ -1,0 +1,77 @@
+include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+
+#define Address 0x68
+int decimal_coversion(int code)
+{
+        return((code/10)*16)+(code % 10);
+}
+
+int Bcd_Decimal(int code)
+{
+        return((code/16)*10) + (code % 16);
+}
+
+void set_ds1307(int fd,int year,int month,int date,int day, int hours,
+               int minute,int seconds)
+{
+        unsigned char Write_Buff[8];
+        Write_Buff[0] = 0x00;
+        Write_Buff[1] = decimal_coversion(seconds);
+        Write_Buff[2] = decimal_coversion(minute);
+        Write_Buff[3] = decimal_coversion(hours);
+        Write_Buff[4] = decimal_coversion(day);
+        Write_Buff[5] = decimal_coversion(date);
+        Write_Buff[6] = decimal_coversion(month);
+        Write_Buff[7] = decimal_coversion(year);
+        write(fd,Write_Buff,8);
+
+}
+void get_ds1307(int fd,int *year,int *month,int *date,int *day, int *hours,
+                               int *minute,int *seconds)
+{
+  unsigned char read_Buff[8];
+  read_Buff[0] = 0x00;
+  write(fd,read_Buff,1);
+  read(fd,read_Buff,7);
+
+  *seconds = Bcd_Decimal(read_Buff[0]&0x7F);
+  *minute  = Bcd_Decimal(read_Buff[1]);
+  *hours   = Bcd_Decimal(read_Buff[2]&0x3F);
+  *day     = Bcd_Decimal(read_Buff[3]);
+  *date    = Bcd_Decimal(read_Buff[4]);
+  *month   = Bcd_Decimal(read_Buff[5]);
+  *year    = Bcd_Decimal(read_Buff[6]);
+
+
+}
+
+int main()
+{
+
+int year,month,date,day,hours,minute,seconds;
+ int fd = open("/dev/i2c-2",O_RDWR);
+ if(fd < 0)
+  {
+          printf("Failed to open");
+          return 1;
+
+  }
+ if (ioctl(fd, I2C_SLAVE,Address) < 0)
+ {
+         printf("Failed to select the RTC device.\n");
+         return 1;
+ }
+
+set_ds1307(fd,23,6,28,2,12,32,20);
+sleep(1);
+get_ds1307(fd,&year,&month,&date,&day,&hours,&minute,&seconds);
+printf("Current date and time: 20%d-%d-%d %02d:%02d:%02d\n", year, month, date,  
+hours, minute, seconds);
+close(fd);
+}
+
