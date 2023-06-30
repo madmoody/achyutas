@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <termios.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define ERRORCHECK(cmd,message) \
+if ((cmd) < 0) {\
+   int err = errno; \
+   perror(message); \
+   exit(err); \
+}
+
+int main(int argc, char *argv[])
+{
+    int ttyfd;
+    struct termios saved, current;
+    
+    ttyfd = open("/dev/ttyS1",O_RDWR);
+    ERRORCHECK(ttyfd,"Open of /dev/ttyS1 failed:")
+    ERRORCHECK(tcgetattr(ttyfd,&saved),"tcgetattr (saved) of /dev/ttyS1 failed:")
+    ERRORCHECK(tcgetattr(ttyfd,&current),"tcgetattr (current) of /dev/ttyS1 failed:")
+    ERRORCHECK(cfsetspeed(&current,B115200),"cfsetspeed (current) failed:");
+    ERRORCHECK(tcsetattr(ttyfd,TCSANOW,&current),"tcsetattr (current) failed:");
+    ERRORCHECK(write(ttyfd,"Hello World\r\n",13),"write failed");
+    ERRORCHECK(tcsetattr(ttyfd,TCSADRAIN,&saved),"tcsetattr (saved) failed:");
+    ERRORCHECK(close(ttyfd),"close failed");
+    exit(0);
+}
+
