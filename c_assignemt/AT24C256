@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+
+
+#define I2C_DEV_FILE "/dev/i2c-2"
+
+#define EEPROM_ADDR 0x50
+
+
+void read_eeprom_data(int file, int address, int length, unsigned char* buffer) {
+    
+    unsigned char addr_buf[2];
+    addr_buf[0] = (address >> 8) & 0xFF; // MSB
+    addr_buf[1] = address & 0xFF;        // LSB
+    write(file, addr_buf, 2);
+
+    // Read data from the EEPROM
+    read(file, buffer, length);
+}
+
+
+void write_eeprom_data(int file, int address, int length, const unsigned char* data) {
+  
+    unsigned char buffer[length + 2];
+    buffer[0] = (address >> 8) & 0xFF; // MSB
+    buffer[1] = address & 0xFF;        // LSB
+    for (int i = 0; i < length; i++) {
+        buffer[i + 2] = data[i];
+    }
+
+    // Write data to the EEPROM
+    write(file, buffer, length + 2);
+}
+
+int main() {
+    
+    int file = open(I2C_DEV_FILE, O_RDWR);
+    if (file < 0) {
+        perror("Failed to open the I2C device file");
+        return 1;
+    }
+
+    
+    if (ioctl(file, I2C_SLAVE, EEPROM_ADDR) < 0) {
+        perror("Failed to set the EEPROM address");
+        close(file);
+        return 1;
+    }
+
+    unsigned char data_to_write[] = {0x01, 0x02, 0x03, 0x04, 0x05};
+    int eeprom_address_to_write = 0x10;
+    int data_length = sizeof(data_to_write);
+
+    write_eeprom_data(file, eeprom_address_to_write, data_length, data_to_write);
+
+    unsigned char read_data[data_length];
+    read_eeprom_data(file, eeprom_address_to_write, data_length, read_data);
+
+    printf("Read Data: ");
+    for (int i = 0; i < data_length; i++) {
+        printf("%02X ", read_data[i]);
+    }
+    printf("\n");
+
+    close(file);
+
+    return 0;
+}
